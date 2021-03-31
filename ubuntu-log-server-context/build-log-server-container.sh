@@ -30,4 +30,4 @@ fi
 
 
 
-docker run -it --name $CONTAINER_NAME --network-alias $CONTAINER_NAME --network $NETWORK_NAME -p $CONTAINER_PORT:$CONTAINER_PORT --privileged ubuntu-log-server
+docker run -it --name $CONTAINER_NAME -h $CONTAINER_NAME --network-alias $CONTAINER_NAME --network $NETWORK_NAME -p $CONTAINER_PORT:$CONTAINER_PORT --privileged ubuntu-log-server

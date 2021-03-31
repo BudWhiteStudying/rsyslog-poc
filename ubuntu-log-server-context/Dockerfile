@@ -14,3 +14,5 @@ COPY ./rsyslog-aggregator.conf /etc/rsyslog.d/
 RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 RUN touch /data/logs/rsys/my-app.log
 RUN chown syslog:syslog /data/logs/rsys/my-app.log
+RUN echo "service rsyslog restart" >> ~/.bashrc
+RUN echo "cd /data/logs/rsys" >> ~/.bashrc

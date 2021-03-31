@@ -28,4 +28,4 @@ then
 	exit 1
 fi
 
-docker run -it --privileged --name $CONTAINER_NAME --network-alias $CONTAINER_NAME --network logs-network -p $CONTAINER_PORT:$CONTAINER_PORT ubuntu-app-server
+docker run -it --privileged --name $CONTAINER_NAME -h $CONTAINER_NAME --network-alias $CONTAINER_NAME --network logs-network -p $CONTAINER_PORT:$CONTAINER_PORT ubuntu-app-server
