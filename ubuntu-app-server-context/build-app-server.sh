@@ -1,4 +1,6 @@
 
+EXECUTION_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 LOG_SERVER_NAME=""
 NETWORK_NAME=""
 
@@ -38,7 +40,9 @@ echo "building app server image with log server name $LOG_SERVER_NAME"
 # build container
 CONTAINER_PORT=$CONTAINERS_STARTING_PORT
 for CONTAINER_NAME in "${CONTAINERS[@]}"; do
+	CONTAINER_CREATION_COMMAND="cd "$EXECUTION_DIR";./build-app-server-container.sh -n "$CONTAINER_NAME" -p "$CONTAINER_PORT" -w "$NETWORK_NAME
 	echo "building app server container with name $CONTAINER_NAME, port $CONTAINER_PORT, network $NETWORK_NAME"
-	./build-app-server-container.sh -n $CONTAINER_NAME -p $CONTAINER_PORT -w $NETWORK_NAME
+	echo "build commmand $CONTAINER_CREATION_COMMAND"
+	osascript -e 'tell app "Terminal" to do script "'"$CONTAINER_CREATION_COMMAND"'"'
 	CONTAINER_PORT=$(($CONTAINER_PORT+1))
 done

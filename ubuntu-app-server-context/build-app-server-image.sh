@@ -14,6 +14,6 @@ then
 	exit 1
 fi
 echo "Building rsyslog-sender.conf file with LOG_SERVER_NAME=$LOG_SERVER_NAME"
-sed 's/LOG_SERVER_NAME/$LOG_SERVER_NAME/g' rsyslog-sender.template > rsyslog-sender.conf
+sed "s/LOG_SERVER_NAME/$LOG_SERVER_NAME/g" rsyslog-sender.template > rsyslog-sender.conf
 echo "Building image"
 docker build -t ubuntu-app-server:latest .

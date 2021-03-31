@@ -1,5 +1,4 @@
 FROM ubuntu:latest
-EXPOSE 9000
 RUN apt-get update && apt-get install -y \
     rsyslog \
     rsyslog-relp \
