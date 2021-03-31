@@ -2,7 +2,7 @@ $template hostname-only,"%HOSTNAME% %msg%\n"
 module(load="imrelp")
 
 ruleset(name="receive_from_LOG_SERVER_PORT") {
-    action(type="omfile" file="/data/logs/rsys/my-app.log" template="hostname-only")
+    action(type="omfile" file="/var/logs/rsys/my-app.log" template="hostname-only")
 }
 
 input(type="imrelp" port="LOG_SERVER_PORT" ruleset="receive_from_LOG_SERVER_PORT")

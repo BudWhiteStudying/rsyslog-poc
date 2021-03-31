@@ -7,10 +7,10 @@ ruleset(name="send_to_remote") {
     action(type="omrelp" target="LOG_SERVER_NAME" port="10000")
 }
 
-# Send all files on this server to the same remote, tagged appropriately
+# Send log file to remote, tagged appropriately
 input(
     type="imfile"
-    File="/usr/games/my-app/logs/app-log.log"
+    File="/opt/my-app/logs/app-log.log"
     Tag="my-app:"
     Ruleset="send_to_remote"
 )
