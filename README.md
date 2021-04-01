@@ -1,22 +1,27 @@
-Sample usage: start-poc.sh running in directory /Users/tom/Documents/tools/docker/rsyslog-poc
-entering log server directory ./ubuntu-log-server-context and executing build script
-building log server image with log server port 10000
-Building rsyslog-aggregator.conf file with LOG_SERVER_PORT=10000
-Building image
-building log server container with name logs, port 10000, network logs-network
-build commmand cd /Users/tom/Documents/tools/docker/rsyslog-poc/ubuntu-log-server-context;./build-log-server-container.sh -n logs -p 10000 -w logs-network
-tab 1 of window id 45099
-back to starting execution directory /Users/tom/Documents/tools/docker/rsyslog-poc
-entering app server directory ./ubuntu-app-server-context
-assembling app servers build command
-executing ./build-app-server.sh -c app1 -c app2 -l logs -w logs-network
-building app server image with log server name logs
-Building rsyslog-sender.conf file with LOG_SERVER_NAME=logs
-Building image
-building app server container with name app1, port 10001, network logs-network
-build commmand cd /Users/tom/Documents/tools/docker/rsyslog-poc/ubuntu-app-server-context;./build-app-server-container.sh -n app1 -p 10001 -w logs-network
-tab 1 of window id 45101
-building app server container with name app2, port 10002, network logs-network
-build commmand cd /Users/tom/Documents/tools/docker/rsyslog-poc/ubuntu-app-server-context;./build-app-server-container.sh -n app2 -p 10002 -w logs-network
-tab 1 of window id 45103
-Sample usage: `./start-poc.sh -c app1 -c app2 -l logs -w logs-network -p 10000`
+## rsyslog POC
+This small Docker playground demonstrates the possibility to gather application logs 
+on a dedicated "logs server".
+
+Currently working on MacOS only.
+
+Sample usage: `./start-poc.sh -c app1 -c app2 -l logs -w logs-network`
+
+All above options are mandatory, and have the folllowing meaning:
+- `-c` one or more names for as many sample app servers, each app server will be created 
+with a fake application on it (a shell script merely echoing a string on a log file); 
+names are used as container names and hostnames
+- `-l` name of the logs server, used as container names and hostname
+- `-w` name of the Docker network through which the sample servers shall communicate 
+(TODO: should check for the existence of such a network, and if not existent create it)
+
+The `start-poc.sh` script assumes that Docker is available and started. It creates one or 
+more application servers, and a log server, and configures `rsyslog` on each of them so 
+that the app servers send their application logs to the log server.
+
+The log server listens on port `10000`, app servers do not actually neeed to listen to 
+anything, but are configured to listen on ports `10001`, `10002` etc anyway.
+
+Once the `start-poc.sh` script is done running, you may:
+- `tail` the log file on the logs server
+- start the `fake-application.sh` script on the app server(s)
+- observe that all the app logs are sent to the logs server.
