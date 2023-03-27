@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:focal-20210416
 RUN apt-get update && apt-get install -y \
     rsyslog \
     rsyslog-relp \
